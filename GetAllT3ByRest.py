@@ -9,7 +9,7 @@ response = requests.get(url)
 #print(response.text)
 
 #matchLinkRegex = '<a class="thumb vtop inlblk rel tdnone linkWithHash scale4 detailsLinkPromoted "[\S\s]*href="([\S\s]*)" title="" >'
-matchLinkRegex = 'href="([\S\s]*?)"'
+matchLinkRegex = 'summary[\S\s]*?href="([\S\s]*?)"'
 matches = re.findall(matchLinkRegex, response.text)
 print('Matches:')
 print(matches)
