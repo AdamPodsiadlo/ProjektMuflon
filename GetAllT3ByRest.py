@@ -11,7 +11,7 @@ response = requests.get(url)
 #matchLinkRegex = '<a class="thumb vtop inlblk rel tdnone linkWithHash scale4 detailsLinkPromoted "[\S\s]*href="([\S\s]*)" title="" >'
 matchLinkRegex = 'href="(https:\/\/www.olx.pl\/oferta.*?\.html#\w*?)"'
 rokProdukcjiRegex = 'Rok produkcji[\s\S]*?<strong>[\s\S]*?(\d\d\d\d)'
-przebiegRegex = 'Przebieg[\s\S]*?<strong>[\s\S]*?([\d\s]+)'
+przebiegRegex = 'Przebieg[\s\S]*?<strong>[\s\S]*?\s*([\d\s]+)'
 matches = re.findall(matchLinkRegex, response.text)
 print('Matches:')
 print(matches)
@@ -21,9 +21,11 @@ for match in matches:
 	print(match)
 	responseOffer = requests.get(match)
 	#print(responseOffer.text)
-	przebieg = re.findall(przebiegRegex, responseOffer.text)
-	rokProdukcji = re.findall(rokProdukcjiRegex, responseOffer.text)
-	rokProdukcji = re.findall(rokProdukcjiRegex, responseOffer.text)
+	przebiegMatch = re.search(przebiegRegex, responseOffer.text)
+	rokProdukcjiMatch = re.search(rokProdukcjiRegex, responseOffer.text)
+	
+	przebieg = przebiegMatch.group(1)
+	rokProdukcji = rokProdukcjiMatch.group(1)
 	print(rokProdukcji)
 	print(przebieg)
 	i = i + 1
