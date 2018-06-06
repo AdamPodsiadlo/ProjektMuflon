@@ -1,9 +1,15 @@
-# python -m pip install request 
+# py -m pip install request 
 # cmd to get request lib (module)
-# python -m pip install regex
+# py -m pip install regex
 # cmd to get request lib (module)
 import requests
 import re
+
+
+class RokPrzebieg:
+	Rok = ""
+	Przebieg = ""
+
 url = 'https://www.olx.pl/motoryzacja/samochody/q-transporter-t3/'
 response = requests.get(url)
 #print(response.text)
@@ -16,6 +22,9 @@ matches = re.findall(matchLinkRegex, response.text)
 print('Matches:')
 print(matches)
 i = 0
+
+
+dane = list()
 for match in matches:
 	print(i)
 	print(match)
@@ -26,9 +35,17 @@ for match in matches:
 	
 	przebieg = przebiegMatch.group(1)
 	rokProdukcji = rokProdukcjiMatch.group(1)
-	print(rokProdukcji)
-	print(przebieg)
+	print('Rok: ',rokProdukcji)
+	print('Przebieg: ',przebieg)
+	
+	rp = RokPrzebieg()
+	rp.Rok = rokProdukcji
+	rp.Przebieg = przebieg
+	
+	dane.append(rp)
 	i = i + 1
+	
+	
 
 
 
